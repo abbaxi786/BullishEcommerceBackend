@@ -18,8 +18,9 @@ const app = express();
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://your-vercel-app.vercel.app"
+    "https://bullish-ecommerce-frontend.vercel.app"
   ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
 

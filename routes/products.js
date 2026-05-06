@@ -128,8 +128,7 @@ productRouter.get("/product/:categoryId", async (req, res) => {
     const { categoryId } = req.params;
     const { userId } = req.query;
 
-    const products = await Product.find({ category: categoryId })
-      .sort({ createdAt: -1 });
+    const products = await Product.find({ category: categoryId });
 
     if (!userId) {
       return res.status(200).json({

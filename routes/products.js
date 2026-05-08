@@ -161,7 +161,50 @@ productRouter.get("/product/:categoryId", async (req, res) => {
   }
 });
 
+productRouter.get("/randomproducts", async (req, res) => {
+  try {
 
+    // populate category
+    const products = await Product.find()
+      .populate("category");
+
+    // shuffle products randomly
+    const shuffledProducts = products.sort(
+      () => 0.5 - Math.random()
+    );
+
+    const uniqueProducts = [];
+
+    const usedCategories = new Set();
+
+    for (const product of shuffledProducts) {
+
+      const firstCategory = product.category?.[0];
+
+      if (!firstCategory) continue;
+
+      if (!usedCategories.has(firstCategory._id.toString())) {
+
+        usedCategories.add(firstCategory._id.toString());
+
+        uniqueProducts.push(product);
+      }
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: uniqueProducts,
+    });
+
+  } catch (error) {
+
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+
+  }
+});
 export default productRouter;
 
 

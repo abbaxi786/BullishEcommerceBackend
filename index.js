@@ -10,25 +10,19 @@ import orderRouter from "./routes/order.js";
 import bannerRouter from "./routes/banner.js";
 import feedBackRouter from "./routes/feedback.js";
 import favouriteRouter from "./routes/favourite.js";
+import contactRouter from "./routes/contact.js";
 
 dotenv.config();
 
 const app = express();
 
-// app.use(cors({
-//   origin: [
-//     "http://localhost:5173",
-//     "https://bullish-ecommerce-frontend.vercel.app"
-//   ],
-//   methods: ["GET", "POST", "PUT", "DELETE"],
-//   credentials: true
-// }));
+
 app.use(cors());
 
 app.use(express.json());
 
-// Routes
 app.use("/", categoryRouter);
+app.use('/',contactRouter);
 app.use("/", productRouter);
 app.use("/", userRouter);
 app.use("/", orderRouter);
@@ -40,7 +34,6 @@ app.get("/", (req, res) => {
   res.send("API is running");
 });
 
-// Start server AFTER DB connection
 const startServer = async () => {
   try {
     await connectDB();
